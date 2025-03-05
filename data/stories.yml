@@ -1,0 +1,6 @@
+- story: User sets business type
+  steps:
+    - intent: set_business_type
+    - slot_was_set:
+        - business_type: "healthcare"
+    - action: action_load_business_intents

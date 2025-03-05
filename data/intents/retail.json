@@ -1,0 +1,20 @@
+{
+    "intents": [
+        {
+            "name": "track_order",
+            "examples": [
+                "Where is my order?",
+                "Track my package",
+                "Can you tell me my order status?"
+            ]
+        },
+        {
+            "name": "return_policy",
+            "examples": [
+                "What is your return policy?",
+                "Can I return an item?",
+                "How long do I have to return a product?"
+            ]
+        }
+    ]
+}

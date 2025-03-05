@@ -1,0 +1,31 @@
+version: "3.1"
+
+intents:
+  - goodbye  # Ensure this is properly listed
+
+entities:
+  - user_id
+  - business_type
+
+slots:
+  user_id:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom  # Required, but will be set manually in code
+  business_type:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: business_type
+
+actions:
+  - action_load_business_intents  # Required to dynamically load intents
+
+responses:
+  utter_iamabot:
+    - text: "I am a customizable AI assistant."
+  
+  utter_goodbye:
+    - text: "Goodbye! Have a great day."

@@ -1,6 +1,17 @@
-- story: User sets business type
+version: "3.1"
+
+stories:
+- story: User greets the bot
   steps:
-    - intent: set_business_type
-    - slot_was_set:
-        - business_type: "healthcare"
-    - action: action_load_business_intents
+  - intent: greet
+  - action: action_respond_from_db
+
+- story: User says goodbye
+  steps:
+  - intent: goodbye
+  - action: action_respond_from_db
+
+- story: Bot challenge
+  steps:
+  - intent: bot_challenge
+  - action: action_respond_from_db

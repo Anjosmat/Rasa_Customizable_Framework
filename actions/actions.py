@@ -1,66 +1,29 @@
-import json
-import os
-from rasa_sdk import Action
-from rasa_sdk.events import SlotSet
+import sqlite3
+from typing import Any, Text, Dict, List
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
 
+class ActionRespondFromDatabase(Action):
+    def name(self) -> Text:
+        return "action_respond_from_db"
 
-# Load intents dynamically
-class ActionLoadBusinessIntents(Action):{
-    "intents": [
-        {
-            "name": "schedule_appointment",
-            "examples": [{
-    "intents": [
-        {
-            "name": "open_bank_account",
-            "examples": [
-                "I want to open a bank account",
-                "How can I create a new account?",
-                "What are the requirements for a new account?"
-            ]
-        },
-        {
-            "name": "loan_application",
-            "examples": [
-                "How do I apply for a loan?",
-                "Can I get a personal loan?",
-                "Tell me about home loan options."
-            ]
-        }
-    ]
-}
+    def fetch_response_from_db(self, intent_name: Text) -> Text:
+        """Fetches response from SQLite database based on intent"""
+        conn = sqlite3.connect("chatbot.db")
+        cursor = conn.cursor()
 
-                "I want to schedule an appointment",
-                "Book a doctor visit",
-                "Can I see a doctor on Monday?"
-            ]
-        },
-        {
-            "name": "symptom_checker",
-            "examples": [
-                "I have a headache and fever",
-                "My throat hurts, what should I do?",
-                "What are the symptoms of flu?"
-            ]
-        }
-    ]
-}
+        cursor.execute("SELECT response FROM intents WHERE intent_name=?", (intent_name,))
+        result = cursor.fetchone()
 
-    def name(self):
-        return "action_load_business_intents"
+        conn.close()
+        return result[0] if result else "Sorry, I don't understand that."
 
-    def run(self, dispatcher, tracker, domain):
-        user_id = tracker.get_slot("user_id")
-        business_type = tracker.get_slot("business_type")
+    def run(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]
+    ) -> List[Dict[Text, Any]]:
+        """Handles user intent dynamically from the database"""
+        intent = tracker.latest_message["intent"]["name"]
+        response = self.fetch_response_from_db(intent)
 
-        # Load intents from JSON file
-        intents_path = f"data/intents/{business_type}.json"
-
-        if os.path.exists(intents_path):
-            with open(intents_path, "r") as file:
-                intents_data = json.load(file)
-                dispatcher.utter_message(text="Business intents loaded successfully.")
-                return [SlotSet("business_intents", intents_data)]
-        else:
-            dispatcher.utter_message(text="No intents found for this business type.")
-            return []
+        dispatcher.utter_message(text=response)
+        return []

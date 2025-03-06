@@ -1,29 +1,37 @@
-import sqlite3
-from typing import Any, Text, Dict, List
+import logging
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+from sqlalchemy.orm import sessionmaker
+from database.db_config import SessionLocal, BusinessIntent
 
-class ActionRespondFromDatabase(Action):
-    def name(self) -> Text:
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+class ActionRespondFromDB(Action):
+    def name(self):
         return "action_respond_from_db"
 
-    def fetch_response_from_db(self, intent_name: Text) -> Text:
-        """Fetches response from SQLite database based on intent"""
-        conn = sqlite3.connect("chatbot.db")
-        cursor = conn.cursor()
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain):
+        session = SessionLocal()
+        user_intent = tracker.latest_message["intent"].get("name")
 
-        cursor.execute("SELECT response FROM intents WHERE intent_name=?", (intent_name,))
-        result = cursor.fetchone()
+        logger.info(f"Received intent: {user_intent}")
 
-        conn.close()
-        return result[0] if result else "Sorry, I don't understand that."
+        try:
+            intent_data = session.query(BusinessIntent).filter_by(intent_name=user_intent).first()
+            if intent_data:
+                response = intent_data.response_text
+                dispatcher.utter_message(text=response)
+                logger.info(f"Responding with: {response}")
+            else:
+                dispatcher.utter_message(text="I'm not sure how to respond to that.")
+                logger.warning(f"No response found for intent: {user_intent}")
+        except Exception as e:
+            logger.error(f"Error retrieving intent response: {e}")
+            dispatcher.utter_message(text="An error occurred while processing your request.")
+        finally:
+            session.close()
 
-    def run(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]
-    ) -> List[Dict[Text, Any]]:
-        """Handles user intent dynamically from the database"""
-        intent = tracker.latest_message["intent"]["name"]
-        response = self.fetch_response_from_db(intent)
-
-        dispatcher.utter_message(text=response)
         return []

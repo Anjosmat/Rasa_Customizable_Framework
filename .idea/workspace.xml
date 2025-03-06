@@ -5,14 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eaa903d-04e8-4d76-979a-eb2175e8d305" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/actions/action_load_intents.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generate_nlu.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.rasa/cache/cache.db" beforeDir="false" afterPath="$PROJECT_DIR$/.rasa/cache/cache.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/actions/action_load_intents.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/actions/actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/actions/actions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/nlu.yml" beforeDir="false" afterPath="$PROJECT_DIR$/data/nlu.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/rules.yml" beforeDir="false" afterPath="$PROJECT_DIR$/data/rules.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/stories.yml" beforeDir="false" afterPath="$PROJECT_DIR$/data/stories.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain.yml" beforeDir="false" afterPath="$PROJECT_DIR$/domain.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/endpoints.yml" beforeDir="false" afterPath="$PROJECT_DIR$/endpoints.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbot.db" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/business_data.db" beforeDir="false" afterPath="$PROJECT_DIR$/database/business_data.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/db_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/db_config.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,14 +55,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\mateu\Documents\python\Rasa_Customizable_Framework\actions" />

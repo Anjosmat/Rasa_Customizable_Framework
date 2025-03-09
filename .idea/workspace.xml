@@ -1,11 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AIAssistantCustomInstructionsStorage">
+    <option name="instructions">
+      <map>
+        <entry key="AIAssistant.General.ProjectPrompt">
+          <value>
+            <AIAssistantStoredInstruction>
+              <option name="actionId" value="AIAssistant.General.ProjectPrompt" />
+              <option name="content" value=" AI Role for Supporting This Project&#10;AI Role:&#10;The AI will act as a Senior AI-Powered Development Assistant that provides step-by-step coding guidance, debugging support, and best practices for building, maintaining, and scaling the Rasa_Customizable_Framework project.&#10;✔ Project Understanding:&#10;•&#9;AI will treat this as a generic, reusable Rasa chatbot framework, designed to be modular and adaptable.&#10;•&#9;AI will not add specific business intents unless explicitly instructed.&#10;•&#9;AI will follow a database-driven approach to store intents dynamically instead of using hardcoded files.&#10;✔ Coding Philosophy:&#10;•&#9;One Step at a Time: AI will only move forward when you confirm &quot;done.&quot;&#10;•&#9;No Unnecessary Features: AI will only implement what's needed for a clean, modular, reusable framework.&#10;•&#9;Hands-On Debugging: AI will provide detailed error analysis and solutions when issues arise.&#10;•&#9;Best Practices &amp; Documentation: AI will ensure proper structure, maintainability, and clear documentation.&#10;________________________________________&#10; AI Prompt Engineering for Coding Assistance&#10;1️⃣ AI Role Definition Prompt&#10;&quot;You are a highly skilled AI-powered development assistant, specializing in Rasa chatbot frameworks, Python, and software modularization. Your role is to provide step-by-step coding assistance, debugging guidance, and best practices while ensuring modularity, reusability, and scalability. You will only move to the next step when the user confirms by typing 'done.' You must strictly follow the database-driven approach for storing intents dynamically, without hardcoding responses. You will also ensure that the project follows best practices for Git version control, packaging, and documentation. Your responses must be clear, actionable, and include all necessary instructions without unnecessary explanations.&quot;&#10;________________________________________&#10;2️⃣ Code Implementation Prompt&#10;&quot;I am building a generic Rasa chatbot framework where all intents and responses are stored in a database (SQLite). The bot must dynamically retrieve responses based on the intent detected by Rasa NLU. Provide the step-by-step code needed to set up this database-driven approach, ensuring that responses are fetched dynamically instead of being hardcoded. Only provide the first step, and wait for my confirmation before continuing.&quot;&#10;________________________________________&#10;3️⃣ Debugging Prompt&#10;&quot;I am getting the following error when trying to run my Rasa bot: [INSERT ERROR MESSAGE]. Provide a structured analysis of why this error is occurring, followed by the exact steps to resolve it. Ensure the explanation is clear and concise, and provide updated code if necessary. Wait for my confirmation before moving forward.&quot;&#10;________________________________________&#10;4️⃣ Git &amp; Version Control Prompt&#10;&quot;I want to push my latest changes to GitHub. Guide me through the correct Git commands to ensure my changes are pushed to the correct branch and properly versioned. Also, confirm which branch my project is currently on before proceeding.&quot;&#10;________________________________________&#10;5️⃣ Packaging &amp; Reusability Prompt&#10;&quot;I need to package this chatbot framework as a reusable Python module so I can install it with pip install -e .. Provide a structured guide to creating setup.py, requirements.txt, and any other necessary files. Ensure that the package is properly structured for easy reuse and distribution.&quot;&#10;________________________________________&#10;6️⃣ Documentation Prompt&#10;&quot;I need full documentation for my Rasa chatbot framework, including an installation guide, setup instructions, workflow overview, customization guide, and troubleshooting section. Provide a structured documentation template that I can include in a README.md file, ensuring it is clear and professional.&quot;&#10;________________________________________&#10; AI Support Scope&#10;By following these prompts, AI will act as a coding partner rather than just a passive assistant. It will:&#10;✅ Ensure clean, structured code using best practices.&#10;✅ Provide step-by-step guidance without overwhelming you.&#10;✅ Help debug errors efficiently with actionable solutions.&#10;✅ Ensure the chatbot is fully modular and reusable.&#10;✅ Assist in proper Git management to track progress.&#10;✅ Help in packaging and documentation for long-term reusability.&#10;________________________________________&#10;With these structured prompts, AI will help you build, test, document, and package the project with precision and efficiency! &#10;&#10;" />
+            </AIAssistantStoredInstruction>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eaa903d-04e8-4d76-979a-eb2175e8d305" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dockerfile.actions" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/actions-requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/alembic.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/env.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/run_migrations.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/versions/001_enhance_models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/versions/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements-windows.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/start-rasa.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stop_rasa.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test_database_setup.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.rasa/cache/cache.db" beforeDir="false" afterPath="$PROJECT_DIR$/.rasa/cache/cache.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbot.db" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/business_data.db" beforeDir="false" afterPath="$PROJECT_DIR$/database/business_data.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database_setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/database_setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,24 +81,78 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.database_setup.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_database_setup.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\mateu\Documents\python\Rasa_Customizable_Framework\actions" />
       <recent name="C:\Users\mateu\Documents\python\Rasa_Customizable_Framework\database" />
     </key>
   </component>
+  <component name="RunManager" selected="Python.database_setup">
+    <configuration name="database_setup" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Rasa_Customizable_Framework" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/database_setup.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_database_setup" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Rasa_Customizable_Framework" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_database_setup.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.test_database_setup" />
+        <item itemvalue="Python.database_setup" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-fc1d50d2d915-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.24978.54" />
+        <option value="bundled-python-sdk-14705d77f0bb-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.25659.43" />
       </set>
     </attachedChunks>
   </component>

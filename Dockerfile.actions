@@ -1,0 +1,19 @@
+FROM rasa/rasa-sdk:3.6.2
+
+WORKDIR /app
+
+# Copy all necessary directories and files
+COPY ./actions /app/actions
+COPY ./database /app/database
+COPY ./actions-requirements.txt /app/
+
+# Switch to root for installations
+USER root
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r actions-requirements.txt
+
+# Switch back to non-root user
+USER 1001
+EXPOSE 5055
+
+CMD ["start", "--actions", "actions"]

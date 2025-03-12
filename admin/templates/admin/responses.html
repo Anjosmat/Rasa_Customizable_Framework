@@ -1,0 +1,92 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Response Management</h2>
+        </div>
+        <div class="col text-end">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addResponseModal">
+                Add New Response
+            </button>
+        </div>
+    </div>
+
+    <!-- Response List -->
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Intent</th>
+                            <th>Business Type</th>
+                            <th>Response Text</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for response in responses %}
+                        <tr>
+                            <td>{{ response.intent_name }}</td>
+                            <td>{{ response.business_type }}</td>
+                            <td>{{ response.response_text }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                        data-bs-target="#editResponseModal{{ response.id }}">Edit</button>
+                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deleteResponseModal{{ response.id }}">Delete</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Response Modal -->
+<div class="modal fade" id="addResponseModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Response</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ url_for('admin.add_response') }}" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="intent_select" class="form-label">Select Intent</label>
+                        <select class="form-select" id="intent_select" name="intent_id" required>
+                            <option value="">Choose Intent...</option>
+                            {% for intent in intents %}
+                            <option value="{{ intent.id }}">{{ intent.intent_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="business_type" class="form-label">Business Type</label>
+                        <select class="form-select" id="business_type" name="business_type" required>
+                            <option value="">Select Business Type</option>
+                            {% for type in business_types %}
+                            <option value="{{ type }}">{{ type }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="response_text" class="form-label">Response Text</label>
+                        <textarea class="form-control" id="response_text" name="response_text"
+                                rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Response</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

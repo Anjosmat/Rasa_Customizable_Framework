@@ -19,29 +19,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eaa903d-04e8-4d76-979a-eb2175e8d305" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dockerfile.actions" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/actions-requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/alembic.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/env.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/run_migrations.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/versions/001_enhance_models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/versions/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements-windows.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/start-rasa.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stop_rasa.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_database_setup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/cli.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/routes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/static/css/admin.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/templates/404.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/templates/admin/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/templates/admin/create_admin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/templates/admin/dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/templates/admin/intents.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/templates/admin/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/templates/admin/responses.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/routes/intent_routes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/core/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/crud/intent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/schemas/intent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/schemas/responses.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrate.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/002_enhance_database_structure.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/script.py.mako" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.rasa/cache/cache.db" beforeDir="false" afterPath="$PROJECT_DIR$/.rasa/cache/cache.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/actions-requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/actions-requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/actions/actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/actions/actions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alembic.ini" beforeDir="false" afterPath="$PROJECT_DIR$/alembic.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chatbot.db" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/business_data.db" beforeDir="false" afterPath="$PROJECT_DIR$/database/business_data.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/db_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/db_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/versions/001_enhance_models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/versions/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/database/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database_setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/database_setup.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,21 +97,68 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Python.app.executor&quot;: &quot;Run&quot;,
+    &quot;Python.cli.executor&quot;: &quot;Run&quot;,
     &quot;Python.database_setup.executor&quot;: &quot;Run&quot;,
     &quot;Python.test_database_setup.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;ml.llm.AIAssistantPromptsLibrary&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mateu\Documents\python\Rasa_Customizable_Framework\admin\templates\admin" />
       <recent name="C:\Users\mateu\Documents\python\Rasa_Customizable_Framework\actions" />
       <recent name="C:\Users\mateu\Documents\python\Rasa_Customizable_Framework\database" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.database_setup">
+  <component name="RunManager" selected="Python.app">
+    <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Rasa_Customizable_Framework" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="cli" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Rasa_Customizable_Framework" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/admin" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/admin/cli.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="database_setup" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Rasa_Customizable_Framework" />
       <option name="ENV_FILES" value="" />
@@ -144,6 +205,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.app" />
+        <item itemvalue="Python.cli" />
         <item itemvalue="Python.test_database_setup" />
         <item itemvalue="Python.database_setup" />
       </list>

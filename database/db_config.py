@@ -1,31 +1,34 @@
-from sqlalchemy import create_engine, Column, String, Integer, Boolean
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-# Define the database file
-DATABASE_URL = "sqlite:///database/business_data.db"
+# Create the SQLAlchemy engine
+SQLALCHEMY_DATABASE_URL = "sqlite:///./rasa_framework.db"
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+)
 
-# Create engine and session
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+# Create session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Session = SessionLocal
+
+# Create declarative base
 Base = declarative_base()
 
-# Define BusinessIntent table
-class BusinessIntent(Base):
-    __tablename__ = "business_intents"
-    id = Column(Integer, primary_key=True, index=True)
-    business_type = Column(String, index=True)
-    intent_name = Column(String, index=True)
-    response_text = Column(String)
 
-# Define BotConfig table
-class BotConfig(Base):
-    __tablename__ = "bot_config"
-    id = Column(Integer, primary_key=True, index=True)
-    business_type = Column(String, unique=True, index=True)
-    default_greeting = Column(String)
-    default_fallback = Column(String)
-    enable_voice_support = Column(Boolean, default=True)
-    enable_multilingual = Column(Boolean, default=True)
+def init_db():
+    """Initialize the database, creating all tables."""
+    # Import all models here that need to be created
+    from admin.models import AdminUser  # This ensures the model is registered
+    from models import Intent, Response  # Import the new models
 
-# Create tables in the database
-Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=engine)
+
+
+def get_db():
+    """Get database session."""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

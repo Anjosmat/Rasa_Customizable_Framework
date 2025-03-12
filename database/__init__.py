@@ -1,5 +1,5 @@
 from pathlib import Path
-from .db_config import SessionLocal, BusinessIntent, BotConfig, Base, engine
+from .db_config import SessionLocal, Base, engine, Session, init_db
 
 MIGRATIONS_DIR = Path(__file__).parent
 VERSIONS_DIR = MIGRATIONS_DIR / "versions"

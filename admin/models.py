@@ -1,35 +1,30 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean
+from flask_login import UserMixin
+from sqlalchemy import Column, String, Integer, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
-from datetime import datetime
 from database.db_config import Base
 
 
-class AdminIntent(Base):
-    __tablename__ = 'admin_intents'
+class AdminUser(Base, UserMixin):
+    __tablename__ = "admin_users"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    email = Column(String, unique=True, index=True)
+    password = Column(String)
+    is_admin = Column(Boolean, default=False)
+    business_id = Column(Integer, ForeignKey("businesses.id"), nullable=True)
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100), unique=True, nullable=False)
-    description = Column(Text)
-    pattern = Column(Text, nullable=False)  # Training phrases or regex pattern
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    is_active = Column(Boolean, default=True)
-
-    # Relationship with responses
-    responses = relationship('AdminResponse', back_populates='intent')
+    # Relationship
+    business = relationship("Business", foreign_keys=[business_id])
 
 
-class AdminResponse(Base):
-    __tablename__ = 'admin_responses'
+class ChatbotLog(Base):
+    __tablename__ = "chatbot_logs"
+    id = Column(Integer, primary_key=True, index=True)
+    business_id = Column(Integer, ForeignKey("businesses.id"))
+    user_message = Column(String)
+    bot_response = Column(String)
+    intent_detected = Column(String)
+    timestamp = Column(String)  # ISO format timestamp
 
-    id = Column(Integer, primary_key=True)
-    intent_id = Column(Integer, ForeignKey('admin_intents.id'), nullable=False)
-    content = Column(Text, nullable=False)
-    response_type = Column(String(50), default='text')  # text, button, card, etc.
-    metadata = Column(Text)  # JSON field for additional data
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    is_active = Column(Boolean, default=True)
-
-    # Relationship with intent
-    intent = relationship('AdminIntent', back_populates='responses')
+    # Relationship
+    business = relationship("Business", foreign_keys=[business_id])

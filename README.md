@@ -1,167 +1,227 @@
-# Rasa Customizable Framework - Documentation
+# Rasa Customizable Agentic Chatbot Framework
 
-## Table of Contents
-1. [Project Overview](#1-project-overview)
-2. [Installation Guide](#2-installation-guide)
-3. [Configuration Setup](#3-configuration-setup)
-4. [Workflow & Logic](#4-workflow--logic)
-5. [Usage Instructions](#5-usage-instructions)
-6. [How to Extend or Customize](#6-how-to-extend-or-customize)
-7. [Deployment Guide](#7-deployment-guide)
-8. [Troubleshooting](#8-troubleshooting)
-9. [Known Limitations](#9-known-limitations)
-10. [Contributing Guidelines](#10-contributing-guidelines)
-11. [Version Information](#11-version-information)
-12. [Security Considerations](#12-security-considerations)
-13. [Support and Community](#13-support-and-community)
+A modular, database-driven agentic chatbot framework built on Rasa, with a front-end UI for business owners and admins to interact with the chatbot and manage configurations.
 
-## 1. Project Overview
-This project is a generic Rasa-based chatbot framework that allows businesses to configure and customize their own chatbots dynamically. Instead of hardcoded intents, this framework loads intents from a database, making it adaptable for different industries and use cases.
+## Key Features
 
-### Key Features
-- Dynamic intent management via database
-- Multi-business support
-- Customizable response handling
-- Scalable architecture
-- Docker support
-- Cloud-ready deployment options
+- **Agentic AI**: The chatbot autonomously responds to user input based on stored logic.
+- **Database-Driven**: Custom chatbot behaviors are stored in a database, eliminating the need for code modifications.
+- **Scalable & Modular**: Businesses can configure their chatbot through a UI without modifying the core structure.
+- **Admin Portal**: Manage businesses, users, and chatbot configurations via a web-based interface.
+- **Frontend UI for Interaction**: A chat interface where businesses, admins, and customers can interact with the chatbot.
+- **APIs & Webhooks**: Enables easy integration with external applications.
 
-## 2. Installation Guide
+## Project Structure
+
+```
+Rasa_Customizable_Framework/
+│
+├── actions/                  # Rasa custom actions
+│   ├── __init__.py
+│   └── actions.py            # Custom actions to fetch responses from DB
+│
+├── admin/                    # Admin portal
+│   ├── __init__.py
+│   ├── models.py             # Admin user models
+│   ├── routes.py             # Admin routes
+│   └── templates/            # Admin templates
+│
+├── database/                 # Database management
+│   ├── __init__.py
+│   ├── db_config.py          # Database configuration
+│   ├── models.py             # Database models (merged with db_config.py)
+│   └── load_data.py          # Sample data loader
+│
+├── static/                   # Static files (CSS, JS)
+│   ├── css/
+│   └── js/
+│
+├── templates/                # Frontend templates
+│   ├── admin/                # Admin templates
+│   ├── index.html            # Chat interface
+│   └── login.html            # Login page
+│
+├── .env                      # Environment variables
+├── app.py                    # Main Flask application
+├── config.yml                # Rasa configuration
+├── credentials.yml           # Rasa credentials
+├── domain.yml                # Rasa domain
+├── endpoints.yml             # Rasa endpoints
+├── init_project.py           # Project initialization script
+└── requirements.txt          # Project dependencies
+```
+
+## Setup Instructions
+
 ### Prerequisites
-- Python 3.10 or higher
-- Git
-- Rasa CLI (`pip install rasa`)
-- Virtual Environment (recommended)
 
-### Setup Steps
-1. **Clone the Repository**
-   ```bash
+- Python 3.10 or higher
+- Virtual environment (recommended)
+- SQLite (included in Python)
+
+### Installation
+
+1. Clone the repository:
+   ```
    git clone https://github.com/Anjosmat/Rasa_Customizable_Framework.git
    cd Rasa_Customizable_Framework
    ```
 
-2. **Create & Activate Virtual Environment**
-   ```bash
+2. Create and activate a virtual environment:
+   ```
    python -m venv .venv
-   # Windows
+   # On Windows
    .venv\Scripts\activate
-   # Unix/MacOS
+   # On macOS/Linux
    source .venv/bin/activate
    ```
 
-3. **Install Dependencies**
-   ```bash
+3. Run the initialization script:
+   ```
+   python init_project.py
+   ```
+
+4. Install the required dependencies:
+   ```
    pip install -r requirements.txt
    ```
 
-4. **Setup Database**
-   ```bash
-   python database/setup_db.py
+5. Train the Rasa model:
    ```
-
-5. **Train the Model**
-   ```bash
    rasa train
    ```
 
-6. **Start the Services**
-   ```bash
-   # Terminal 1
-   rasa run
-   # Terminal 2
+### Running the Application
+
+You'll need three terminal windows for running the full application:
+
+1. **Terminal 1**: Run the Flask web application
+   ```
+   flask run
+   ```
+   This will start the web server at http://localhost:5000
+
+2. **Terminal 2**: Run the Rasa Action Server
+   ```
    rasa run actions
    ```
+   This will start the action server at http://localhost:5055
 
-## 3. Configuration Setup
-- Edit `config.yml` for NLU pipeline settings
-- Modify `domain.yml` for core functionality
-- Configure database settings in `database/db_config.py`
+3. **Terminal 3**: Run the Rasa API Server
+   ```
+   rasa run --enable-api
+   ```
+   This will start the Rasa server at http://localhost:5005
 
-## 4. Workflow & Logic
-1. **Intent Processing**
-   - User input → NLU processing
-   - Intent extraction & classification
-   - Database query for response
+### Admin Access
 
-2. **Response Generation**
-   - Dynamic response fetching
-   - Fallback handling
-   - Context management
+Once the application is running, you can access the admin portal at http://localhost:5000/login with the following credentials:
 
-## 5. Usage Instructions
-### Basic Operations
-```bash
-# Start Rasa server
-rasa run
+- **Email**: admin@example.com
+- **Password**: admin123
 
-# Start Action server
-rasa run actions
+## Usage
 
-# Interactive shell
-rasa shell
-```
+### Managing Businesses
+
+1. Log in to the admin portal
+2. Navigate to the "Businesses" section
+3. Add, edit, or remove businesses
 
 ### Managing Intents
-1. Access SQLite database
-2. Add/modify intents in business_intents table
-3. Restart services
 
-## 6. How to Extend or Customize
-- Add custom actions in `actions/actions.py`
-- Implement new database queries
-- Create business-specific intent filters
+1. Log in to the admin portal
+2. Navigate to the "Intents" section
+3. Add, edit, or remove intents and their responses
 
-## 7. Deployment Guide
-### Docker Deployment
-```dockerfile
-FROM rasa/rasa:latest
-COPY . /app
-WORKDIR /app
-RUN rasa train
-CMD ["rasa", "run", "--enable-api"]
-```
+### Using the Chatbot
 
-### Cloud Deployment
-- AWS EC2 recommended setup
-- Database migration guidelines
-- Load balancing configurations
+1. Access the chat interface at http://localhost:5000
+2. Select a business type from the options
+3. Start chatting with the bot
 
-## 8. Troubleshooting
-| Issue | Solution |
-|-------|----------|
-| Port conflicts | Check running processes, use alternative ports |
-| Training failures | Verify dependencies and Python version |
-| Database connection issues | Check credentials and connectivity |
+## Development
 
-## 9. Known Limitations
-- Concurrent user threshold: 1000 users/minute
-- SQLite limitations for high loads
-- English language optimization
-- Training time scales with intent volume
+### Adding New Business Types
 
-## 10. Contributing Guidelines
-1. Fork repository
-2. Create feature branch
-3. Follow coding standards
-4. Submit pull request
+1. Add a new business in the admin portal
+2. Define intents and responses specific to that business type
+3. Configure the chatbot settings for the new business
 
-## 11. Version Information
-- Version: 1.0.0
-- Last Updated: 2024
-- Rasa Compatibility: 3.x
-- Python: 3.10+
+### Adding New Intents
 
-## 12. Security Considerations
-- Regular security updates
-- API authentication required
-- Database access restrictions
-- Rate limiting implementation
+1. Log in to the admin portal
+2. Navigate to the "Intents" section
+3. Click "Add New Intent"
+4. Fill in the business type, intent name, response, and training examples
+5. Save the intent
 
-## 13. Support and Community
-- GitHub Issues for bug reports
-- Feature requests via pull requests
-- Community discussions in Discussions tab
-- Documentation contributions welcome
+### Customizing Bot Responses
 
----
-© 2024 Rasa Customizable Framework. All rights reserved.
+1. Log in to the admin portal
+2. Navigate to the "Intents" section
+3. Edit the intent you want to customize
+4. Update the response text
+5. Save your changes
+
+## Extending the Framework
+
+### Adding New Features
+
+To add new features to the chatbot:
+
+1. Create new custom actions in `actions/actions.py`
+2. Add new intent patterns in the admin portal
+3. Update the `domain.yml` to include new actions if needed
+4. Retrain the model: `rasa train`
+
+### Database Schema
+
+The framework uses the following database tables:
+
+- `business_intents`: Stores intents and responses for each business type
+- `bot_config`: Stores configuration settings for each business type
+- `businesses`: Stores business information
+- `admin_users`: Stores admin user accounts
+- `chatbot_logs`: Stores conversation logs
+
+## Roadmap
+
+Future enhancements planned for this framework:
+
+- Advanced NLU with entity extraction
+- Conversational memory (context-aware responses)
+- Webhook integrations for third-party services
+- Multi-tenant architecture for SaaS deployment
+- Analytics dashboard with conversation insights
+- Multilingual support
+
+## Troubleshooting
+
+### Common Issues
+
+**Rasa server not responding:**
+- Make sure the Rasa server is running (`rasa run --enable-api`)
+- Check the Rasa server logs for any errors
+
+**Actions not working:**
+- Ensure the action server is running (`rasa run actions`)
+- Check that your custom actions are properly defined in `actions/actions.py`
+
+**Database errors:**
+- Verify that the database file exists at `database/business_data.db`
+- Run the initialization script again if needed: `python init_project.py`
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [Rasa](https://rasa.com/) for the open-source conversational AI framework
+- [Flask](https://flask.palletsprojects.com/) for the web application framework
+- [SQLAlchemy](https://www.sqlalchemy.org/) for the ORM

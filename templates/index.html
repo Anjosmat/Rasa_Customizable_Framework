@@ -1,0 +1,308 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rasa Customizable Chatbot</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-top: 56px; /* To account for the fixed navbar */
+        }
+
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .chat-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .chat-box {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+        }
+
+        .user-message {
+            justify-content: flex-end;
+        }
+
+        .bot-message {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 70%;
+        }
+
+        .user-message .message-content {
+            background-color: #4e73df;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .bot-message .message-content {
+            background-color: #e9ecef;
+            color: #212529;
+            border-bottom-left-radius: 5px;
+        }
+
+        .chat-input {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 25px;
+            margin-right: 10px;
+        }
+
+        .chat-input button {
+            padding: 10px 20px;
+            border-radius: 25px;
+            background-color: #4e73df;
+            color: white;
+            border: none;
+        }
+
+        .avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: #4e73df;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bot-avatar {
+            background-color: #f8f9fa;
+            color: #4e73df;
+            border: 1px solid #4e73df;
+        }
+
+        /* Business Type Selector */
+        .business-selector {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Rasa Customizable Chatbot</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('login') }}">
+                            <i class="fas fa-user me-1"></i> Admin Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2>Welcome to Rasa Customizable Chatbot</h2>
+                <p>Ask me anything about the selected business domain!</p>
+            </div>
+
+            <!-- Business Type Selector -->
+            <div class="business-selector">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-primary business-type-btn active" data-type="retail">Retail</button>
+                    <button type="button" class="btn btn-outline-primary business-type-btn" data-type="healthcare">Healthcare</button>
+                    <button type="button" class="btn btn-outline-primary business-type-btn" data-type="finance">Finance</button>
+                </div>
+            </div>
+
+            <!-- Chat Box -->
+            <div class="chat-box" id="chatBox">
+                <!-- Bot Welcome Message -->
+                <div class="message bot-message">
+                    <div class="avatar bot-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        Hello! I'm your Rasa chatbot assistant. How can I help you today?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Type your message here..." autocomplete="off">
+                <button id="sendButton">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatBox = document.getElementById('chatBox');
+            const userInput = document.getElementById('userInput');
+            const sendButton = document.getElementById('sendButton');
+            const businessTypeButtons = document.querySelectorAll('.business-type-btn');
+
+            let currentBusinessType = 'retail'; // Default business type
+
+            // Function to add a message to the chat box
+            function addMessage(message, isUser = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+
+                if (!isUser) {
+                    const avatarDiv = document.createElement('div');
+                    avatarDiv.className = 'avatar bot-avatar';
+                    const icon = document.createElement('i');
+                    icon.className = 'fas fa-robot';
+                    avatarDiv.appendChild(icon);
+                    messageDiv.appendChild(avatarDiv);
+                }
+
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                contentDiv.textContent = message;
+                messageDiv.appendChild(contentDiv);
+
+                chatBox.appendChild(messageDiv);
+                chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to bottom
+            }
+
+            // Function to send message to the chatbot API
+            async function sendToChatbot(message) {
+                try {
+                    const response = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            message: message,
+                            business_type: currentBusinessType
+                        }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    const data = await response.json();
+                    return data.message;
+                } catch (error) {
+                    console.error('Error:', error);
+                    return 'Sorry, there was an error processing your request.';
+                }
+            }
+
+            // Send message when button is clicked
+            sendButton.addEventListener('click', async function() {
+                const message = userInput.value.trim();
+                if (message) {
+                    addMessage(message, true);
+                    userInput.value = '';
+
+                    // Show typing indicator
+                    const typingDiv = document.createElement('div');
+                    typingDiv.className = 'message bot-message typing-indicator';
+                    typingDiv.innerHTML = '<div class="avatar bot-avatar"><i class="fas fa-robot"></i></div><div class="message-content">Typing...</div>';
+                    chatBox.appendChild(typingDiv);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+
+                    // Get response from chatbot
+                    const response = await sendToChatbot(message);
+
+                    // Remove typing indicator
+                    chatBox.removeChild(typingDiv);
+
+                    // Add bot response
+                    addMessage(response);
+                }
+            });
+
+            // Send message when Enter key is pressed
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendButton.click();
+                }
+            });
+
+            // Change business type when buttons are clicked
+            businessTypeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    businessTypeButtons.forEach(btn => btn.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    // Update current business type
+                    currentBusinessType = this.getAttribute('data-type');
+
+                    // Add a message to inform the user
+                    addMessage(`I've switched to ${currentBusinessType} mode. How can I help you?`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

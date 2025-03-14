@@ -1,0 +1,98 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Intents Management - Rasa Customizable Framework{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Intents Management</h1>
+        <a href="{{ url_for('admin.new_intent') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-plus fa-sm text-white-50"></i> Add New Intent
+        </a>
+    </div>
+
+    <!-- Content Row -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">All Intents</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="intentsTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Business Type</th>
+                            <th>Intent Name</th>
+                            <th>Response</th>
+                            <th>Training Examples</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for intent in intents %}
+                        <tr>
+                            <td>{{ intent.business_type }}</td>
+                            <td>{{ intent.intent_name }}</td>
+                            <td>{{ intent.response_text }}</td>
+                            <td>
+                                {% if intent.training_examples %}
+                                <ul class="list-unstyled mb-0">
+                                    {% for example in intent.training_examples.split(';') %}
+                                    <li>- {{ example }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                <em>No training examples</em>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ url_for('admin.edit_intent', id=intent.id) }}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ intent.id }}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+
+                                <!-- Delete Modal -->
+                                <div class="modal fade" id="deleteModal{{ intent.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ intent.id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel{{ intent.id }}">Confirm Delete</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to delete the intent <strong>{{ intent.intent_name }}</strong>?</p>
+                                                <p class="text-danger">This action cannot be undone!</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <form action="{{ url_for('admin.delete_intent', id=intent.id) }}" method="POST">
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize DataTable
+        $('#intentsTable').DataTable({
+            "order": [[0, 'asc'], [1, 'asc']]
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Bot Configuration - Rasa Customizable Framework{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Bot Configuration</h1>
+    </div>
+
+    <!-- Content Row -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">All Configurations</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="configTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Business Type</th>
+                            <th>Default Greeting</th>
+                            <th>Default Fallback</th>
+                            <th>Voice Support</th>
+                            <th>Multilingual</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for config in configs %}
+                        <tr>
+                            <td>{{ config.business_type }}</td>
+                            <td>{{ config.default_greeting }}</td>
+                            <td>{{ config.default_fallback }}</td>
+                            <td>
+                                {% if config.enable_voice_support %}
+                                <span class="badge bg-success">Enabled</span>
+                                {% else %}
+                                <span class="badge bg-danger">Disabled</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if config.enable_multilingual %}
+                                <span class="badge bg-success">Enabled</span>
+                                {% else %}
+                                <span class="badge bg-danger">Disabled</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ url_for('admin.edit_bot_config', id=config.id) }}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize DataTable
+        $('#configTable').DataTable({
+            "order": [[0, 'asc']]
+        });
+    });
+</script>
+{% endblock %}

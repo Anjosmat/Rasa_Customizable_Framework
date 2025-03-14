@@ -1,0 +1,143 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Edit Bot Configuration - Rasa Customizable Framework{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Edit Bot Configuration</h1>
+        <a href="{{ url_for('admin.bot_config') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
+            <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Configurations
+        </a>
+    </div>
+
+    <!-- Content Row -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Configuration for {{ config.business_type }}</h6>
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('admin.edit_bot_config', id=config.id) }}" method="POST">
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="enable_voice_support" name="enable_voice_support" value="1" {% if config.enable_voice_support %}checked{% endif %}>
+                    <label class="form-check-label" for="enable_voice_support">
+                        Enable Voice Support
+                    </label>
+                    <small class="form-text text-muted d-block">Allow users to interact with the bot using voice.</small>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="enable_multilingual" name="enable_multilingual" value="1" {% if config.enable_multilingual %}checked{% endif %}>
+                    <label class="form-check-label" for="enable_multilingual">
+                        Enable Multilingual Support
+                    </label>
+                    <small class="form-text text-muted d-block">Allow the bot to respond in multiple languages.</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update Configuration</button>
+                <a href="{{ url_for('admin.bot_config') }}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Advanced Settings -->
+    <div class="card shadow mb-4 mt-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Advanced Settings</h6>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> These settings allow you to fine-tune the chatbot's behavior for the {{ config.business_type }} business type.
+            </div>
+
+            <form action="{{ url_for('admin.update_advanced_config', id=config.id) if 'update_advanced_config' in url_for_map else '#' }}" method="POST">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="confidence_threshold" class="form-label">Confidence Threshold</label>
+                            <input type="range" class="form-range" id="confidence_threshold" name="confidence_threshold" min="0.3" max="0.9" step="0.05" value="0.5">
+                            <div class="d-flex justify-content-between">
+                                <small>Low (0.3)</small>
+                                <small id="threshold-value">0.5</small>
+                                <small>High (0.9)</small>
+                            </div>
+                            <small class="form-text text-muted">Minimum confidence required for the bot to accept a detected intent.</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="max_history" class="form-label">Conversation History</label>
+                            <select class="form-select" id="max_history" name="max_history">
+                                <option value="1">Short (1 turn)</option>
+                                <option value="3" selected>Medium (3 turns)</option>
+                                <option value="5">Long (5 turns)</option>
+                                <option value="10">Extended (10 turns)</option>
+                            </select>
+                            <small class="form-text text-muted">How many previous messages to consider for context.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Fallback Strategy</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="fallback_strategy" id="strategy_apologize" value="apologize" checked>
+                        <label class="form-check-label" for="strategy_apologize">
+                            Apologize and ask for clarification
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="fallback_strategy" id="strategy_suggestions" value="suggestions">
+                        <label class="form-check-label" for="strategy_suggestions">
+                            Provide intent suggestions
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="fallback_strategy" id="strategy_human" value="human">
+                        <label class="form-check-label" for="strategy_human">
+                            Offer to connect to a human agent
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" {% if 'update_advanced_config' not in url_for_map %}disabled{% endif %}>
+                    Save Advanced Settings
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Update the confidence threshold display value
+        const confidenceSlider = document.getElementById('confidence_threshold');
+        const thresholdValue = document.getElementById('threshold-value');
+
+        if (confidenceSlider && thresholdValue) {
+            // Initial value
+            thresholdValue.textContent = confidenceSlider.value;
+
+            // Update on change
+            confidenceSlider.addEventListener('input', function() {
+                thresholdValue.textContent = this.value;
+            });
+        }
+    });
+</script>
+{% endblock %} class="mb-3">
+                    <label for="default_greeting" class="form-label">Default Greeting</label>
+                    <textarea class="form-control" id="default_greeting" name="default_greeting" rows="2" required>{{ config.default_greeting }}</textarea>
+                    <small class="form-text text-muted">This message is used when a user starts a conversation.</small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="default_fallback" class="form-label">Default Fallback</label>
+                    <textarea class="form-control" id="default_fallback" name="default_fallback" rows="2" required>{{ config.default_fallback }}</textarea>
+                    <small class="form-text text-muted">This message is used when the bot doesn't understand the user's message.</small>
+                </div>
+
+                <div

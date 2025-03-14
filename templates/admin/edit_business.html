@@ -1,0 +1,146 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Edit Business - Rasa Customizable Framework{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Edit Business</h1>
+        <a href="{{ url_for('admin.businesses') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
+            <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Businesses
+        </a>
+    </div>
+
+    <!-- Content Row -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Business Details</h6>
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('admin.edit_business', id=business.id) }}" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Business Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ business.name }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="business_type" class="form-label">Business Type Identifier</label>
+                    <input type="text" class="form-control" id="business_type" name="business_type" value="{{ business.business_type }}" required>
+                    <small class="form-text text-muted">Use lowercase with no spaces. This is used as an identifier in the system.</small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="contact_email" class="form-label">Contact Email</label>
+                    <input type="email" class="form-control" id="contact_email" name="contact_email" value="{{ business.contact_email }}" required>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1" {% if business.is_active %}checked{% endif %}>
+                    <label class="form-check-label" for="is_active">
+                        Active
+                    </label>
+                    <small class="form-text text-muted d-block">Inactive businesses won't be accessible by users.</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update Business</button>
+                <a href="{{ url_for('admin.businesses') }}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Related Intents -->
+    <div class="card shadow mb-4 mt-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Related Intents</h6>
+            <a href="{{ url_for('admin.new_intent') }}?business_type={{ business.business_type }}" class="btn btn-sm btn-primary">
+                <i class="fas fa-plus fa-sm"></i> Add Intent
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="intentsTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Intent Name</th>
+                            <th>Response</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="relatedIntentsBody">
+                        <!-- This will be populated via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Form validation
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            const businessType = document.getElementById('business_type').value;
+            if (!/^[a-z][a-z0-9_]*$/.test(businessType)) {
+                alert('Business Type Identifier must contain only lowercase letters, numbers, and underscores, and must start with a letter.');
+                event.preventDefault();
+                return false;
+            }
+        });
+
+        // Load related intents (this would typically be an AJAX call in a real application)
+        // For simplicity, we're simulating it with a setTimeout
+        setTimeout(function() {
+            const businessType = '{{ business.business_type }}';
+
+            // Make an AJAX request to get intents for this business type
+            fetch('/admin/api/intents?business_type=' + businessType)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const tableBody = document.getElementById('relatedIntentsBody');
+
+                    if (data.intents && data.intents.length > 0) {
+                        data.intents.forEach(intent => {
+                            tableBody.innerHTML += `
+                                <tr>
+                                    <td>${intent.intent_name}</td>
+                                    <td>${intent.response_text}</td>
+                                    <td>
+                                        <a href="/admin/intents/${intent.id}/edit" class="btn btn-info btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                    } else {
+                        tableBody.innerHTML = `
+                            <tr>
+                                <td colspan="3" class="text-center">No intents found for this business type.</td>
+                            </tr>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching intents:', error);
+
+                    // Fallback for demo purposes
+                    const tableBody = document.getElementById('relatedIntentsBody');
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="3" class="text-center">No intents found or error loading data.</td>
+                        </tr>
+                    `;
+                });
+        }, 500);
+    });
+</script>
+{% endblock %}

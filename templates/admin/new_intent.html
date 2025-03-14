@@ -1,0 +1,93 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Add New Intent - Rasa Customizable Framework{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Add New Intent</h1>
+        <a href="{{ url_for('admin.intents') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
+            <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Intents
+        </a>
+    </div>
+
+    <!-- Content Row -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Intent Details</h6>
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('admin.new_intent') }}" method="POST">
+                <div class="mb-3">
+                    <label for="training_examples" class="form-label">Training Examples</label>
+                    <textarea class="form-control" id="training_examples" name="training_examples" rows="5" required
+                              placeholder="hello there;hi;hey;good morning"></textarea>
+                    <small class="form-text text-muted">Enter multiple examples separated by semicolons (;).</small>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="regenerate_nlu" name="regenerate_nlu" value="1" checked>
+                    <label class="form-check-label" for="regenerate_nlu">
+                        Regenerate NLU file and restart Rasa
+                    </label>
+                    <small class="form-text text-muted d-block">This will regenerate the NLU file with the new intent and restart Rasa.</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Intent</button>
+                <a href="{{ url_for('admin.intents') }}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Validate the form before submission
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            const intentName = document.getElementById('intent_name').value;
+            // Check if intent name follows snake_case convention
+            if (!/^[a-z][a-z0-9_]*$/.test(intentName)) {
+                alert('Intent name must be in snake_case format (lowercase with underscores).');
+                event.preventDefault();
+                return false;
+            }
+
+            // Check if training examples are provided correctly
+            const trainingExamples = document.getElementById('training_examples').value;
+            if (!trainingExamples.includes(';') && trainingExamples.trim().length > 0) {
+                if (!confirm('You have only provided one training example. It is recommended to provide multiple examples separated by semicolons (;). Continue anyway?')) {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}="business_type" class="form-label">Business Type</label>
+                    <select class="form-control" id="business_type" name="business_type" required>
+                        <option value="">Select Business Type</option>
+                        {% for business in businesses %}
+                        <option value="{{ business.business_type }}">{{ business.name }} ({{ business.business_type }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="intent_name" class="form-label">Intent Name</label>
+                    <input type="text" class="form-control" id="intent_name" name="intent_name" required
+                           placeholder="e.g., greet, goodbye, ask_hours">
+                    <small class="form-text text-muted">Use snake_case naming (lowercase with underscores).</small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="response_text" class="form-label">Response Text</label>
+                    <textarea class="form-control" id="response_text" name="response_text" rows="3" required
+                              placeholder="The chatbot's response when this intent is detected"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for

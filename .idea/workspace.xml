@@ -19,44 +19,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eaa903d-04e8-4d76-979a-eb2175e8d305" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/check_users.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/create_admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fix_database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/init_project.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/minimal_app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/bot_config.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/businesses.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/dashboard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/edit_bot_config.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/edit_business.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/intents.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/logs.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/new_business.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/new_intent.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/new_user.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/users.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_dashboard.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test_login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/actions/actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/actions/actions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/templates/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/404.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/templates/admin/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/templates/admin/create_admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/create_admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/templates/admin/dashboard.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/templates/admin/intents.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/templates/admin/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/templates/admin/responses.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/responses.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/templates/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/business_data.db" beforeDir="false" afterPath="$PROJECT_DIR$/database/business_data.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/db_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/db_config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -9,6 +9,10 @@ from rasa_sdk.events import SlotSet
 from database.db_config import SessionLocal, BusinessIntent, BotConfig, Business
 from admin.models import ChatbotLog
 
+# Import LLM fallback action
+from llm_integration.llm_fallback import ActionLLMFallback
+from llm_integration.context_manager import get_context_manager
+
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -33,6 +37,12 @@ class ActionRespondFromDB(Action):
         # Get business type from slot (defaulting to 'general' if not set)
         business_type = tracker.get_slot("business_type") or "general"
 
+        # Update context manager with business type if available
+        if business_type:
+            context_manager = get_context_manager()
+            context_manager.set_business_type(tracker.sender_id, business_type)
+            logger.info(f"Set business type in context: {business_type}")
+
         logger.info(f"Received intent: {user_intent} for business type: {business_type}")
 
         try:
@@ -56,6 +66,11 @@ class ActionRespondFromDB(Action):
                 response = intent_data.response_text
                 dispatcher.utter_message(text=response)
                 logger.info(f"Responding with: {response}")
+
+                # Add to conversation context
+                context_manager = get_context_manager()
+                context_manager.add_user_message(tracker.sender_id, user_message)
+                context_manager.add_assistant_message(tracker.sender_id, response)
 
                 # Log this interaction
                 self._log_interaction(session, business_id, user_message, response, user_intent)
@@ -118,6 +133,11 @@ class ActionSetBusinessType(Action):
 
             if db_business:
                 dispatcher.utter_message(text=f"I've set your business type to {business_type}.")
+
+                # Update the conversation context with business type
+                context_manager = get_context_manager()
+                context_manager.set_business_type(tracker.sender_id, business_type)
+
                 session.close()
                 return [SlotSet("business_type", business_type)]
 

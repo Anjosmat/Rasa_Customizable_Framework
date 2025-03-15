@@ -6,6 +6,19 @@ intents:
   - bot_challenge
   - set_business_type
   - request_intents
+  - nlu_fallback  # Add this for fallback detection
 
 actions:
   - action_respond_from_db
+  - action_llm_fallback  # Add the LLM fallback action
+
+entities:
+  - business_type
+
+slots:
+  business_type:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: business_type
